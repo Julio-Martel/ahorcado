@@ -14,16 +14,41 @@
 	</header>
 	<main class="main-content">
 		<div class="content" id="texto-boton">
-			<p>
-				Pon a prueba tu conocimiento adivinando las palabras!	
-			</p>
 			<button class="button" id="main-button">
 				start!
+			</button>
+			<button class="button" id="button-instrucciones">
+				instrucciones
 			</button>
 		</div>
 		<div class="content" id="main-image">
 			<img src="images/imageStart/start-game.jpg" class="start-game-image">
 		</div>
+		
+		<div class="ventana-modal">
+			<div class="contenido-modal">
+			 	<div class="lista-instrucciones">
+			 		<h2>Como jugar</h2>
+					<ol>
+						<li>1 - El juego mostrará una palabra oculta con guiones 	bajos (_) representando cada letra.</li>
+						<li>2 - El jugador debe ingresar una letra en cada turno.</li>
+						<li>3 - Si la letra está en la palabra, se revelará en su posición correspondiente.</li>
+						<li>4 - Si la letra no está en la palabra, el jugador perderá un intento y se dibujará una parte del ahorcado.</li>
+						<li>
+							<li>5 - El juego continúa hasta que:</li>
+								<ul>
+									<li> * El jugador adivine toda la palabra (¡gana! 🎉).</li>
+									<li> * Se complete el dibujo del ahorcado sin adivinar la palabra (pierde 💀).</li>
+								</ul>
+						</li>
+					</ol>
+					<button class="button" id="boton-cerrar-modal">
+						cerrar
+					</button>
+				</div>
+			</div>
+		</div>
+
 	</main>
 	<footer class="footer">
 		Derechos de autor. Julio Cesar Martel
