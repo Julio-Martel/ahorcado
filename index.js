@@ -39,42 +39,54 @@ async function cambiarAContenidoJugable() {
 					<input type="button" value="c" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="d" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="e" name="letra" class="tecla-letra" readonly>
-				</div>
-				<div class="seccion-teclas">
 					<input type="button" value="f" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="g" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="h" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="i" name="letra" class="tecla-letra" readonly>
-					<input type="button" value="j" name="letra" class="tecla-letra" readonly>
-				</div>
-				<div class="seccion-teclas">
+					<input type="button" value="j" name="letra" class="tecla-letra" readonly>				
 					<input type="button" value="k" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="m" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="n" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="ñ" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="l" name="letra" class="tecla-letra" readonly>
 				</div>
+
 				<div class="seccion-teclas">
 					<input type="button" value="o" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="p" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="q" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="r" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="s" name="letra" class="tecla-letra" readonly>
-				</div>
-				<div class="seccion-teclas">
 					<input type="button" value="t" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="u" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="v" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="w" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="x" name="letra" class="tecla-letra" readonly>
-				</div>
-				<div class="seccion-teclas">
 					<input type="button" value="y" name="letra" class="tecla-letra" readonly>
-					<input type="button" value="z" name="letra" class="tecla-letra" readonly>
-				</div>								
+					<input type="button" value="z" name="letra" class="tecla-letra" readonly>					
+				</div>							
 			</div>
 		</div>
 	`;
+
+	const palabras = [
+	  "hechizo", "dragón", "poción", "espada", "misterio", 
+	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
+	  "luz", "sombra", "piedra", "llama", "secreto", 
+	  "puerta", "río", "sabiduría", "tesoro", "noche"
+	];
+
+	const obtenerValorAleatorio = (arr) => {
+   	 	return new Promise(resolve => {
+   	 		resolve(arr[Math.floor(Math.random() * arr.length)]);
+   	 	});
+	}
+	
+	const palabraSeleccionada = await obtenerValorAleatorio(palabras);
+
+	console.log(palabraSeleccionada);
+
+
 }
 
 botonStart.addEventListener('click', cambiarAContenidoJugable);
