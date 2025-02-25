@@ -91,6 +91,7 @@ async function cambiarAContenidoJugable() {
 	for (let i = 0; i < longitudPalabra; i++) {
 	    const casillaLetra = document.createElement('div');
 	    casillaLetra.classList.add('cuadrado-casilla');
+	    casillaLetra.setAttribute("data-value", i);
 	    contenedorPalabra.appendChild(casillaLetra);
 	}
 
@@ -107,8 +108,8 @@ async function cambiarAContenidoJugable() {
 			try {
 				const letraEncontrada = await buscarLetra(teclaValue);
 				
-				
-				
+
+
 			} catch(error) {
 				contenedorDeVidas.removeChild(contenedorDeVidas.lastElementChild);
 			}
