@@ -83,8 +83,16 @@ async function cambiarAContenidoJugable() {
 	}
 	
 	const palabraSeleccionada = await obtenerValorAleatorio(palabras);
+	const longitudPalabra = palabraSeleccionada.length;
+	const contenedorPalabra = document.querySelector('.contenedor-palabra');
 
-	console.log(palabraSeleccionada);
+	for (let i = 0; i < longitudPalabra; i++) {
+	    const casillaLetra = document.createElement('div');
+	    casillaLetra.classList.add('cuadrado-casilla');
+	    contenedorPalabra.appendChild(casillaLetra);
+	}
+
+
 
 
 }
