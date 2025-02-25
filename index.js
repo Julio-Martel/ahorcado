@@ -85,6 +85,8 @@ async function cambiarAContenidoJugable() {
 	const palabraSeleccionada = await obtenerValorAleatorio(palabras);
 	const longitudPalabra = palabraSeleccionada.length;
 	const contenedorPalabra = document.querySelector('.contenedor-palabra');
+	const teclas = document.querySelectorAll('.tecla-letra');
+	const contenedorDeVidas = document.querySelector('.intentos-img');
 
 	for (let i = 0; i < longitudPalabra; i++) {
 	    const casillaLetra = document.createElement('div');
@@ -92,6 +94,27 @@ async function cambiarAContenidoJugable() {
 	    contenedorPalabra.appendChild(casillaLetra);
 	}
 
+	const buscarLetra = (letra) => {
+		return new Promise((resolve,reject) => {
+			const letraEncontrada = palabraSeleccionada.includes(letra);
+			if (letraEncontrada) {resolve(true);} else {reject(false);}
+		});
+	}
+
+	for(let tecla of teclas) {
+		tecla.addEventListener('click', async () => {
+			const teclaValue = tecla.value;
+			try {
+				const letraEncontrada = await buscarLetra(teclaValue);
+				
+				
+				
+			} catch(error) {
+				contenedorDeVidas.removeChild(contenedorDeVidas.lastElementChild);
+			}
+
+		});
+	}
 
 
 
