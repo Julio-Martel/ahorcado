@@ -9,16 +9,6 @@ async function cambiarAContenidoJugable() {
 	contenedorPrincipal.innerHTML = `
 		<div class="seccion-juego">
 			<div class="score-vidas">
-				<div class="contenido-estadistico" id="display-vidas">
-					<label for="intentos" name="intentos" class="intentos">Intentos:</label>
-					<div class="intentos-img">
-						<img src="images/imagesGame/icon-vida.png" class="icon-vida">
-						<img src="images/imagesGame/icon-vida.png" class="icon-vida">
-						<img src="images/imagesGame/icon-vida.png" class="icon-vida">
-						<img src="images/imagesGame/icon-vida.png" class="icon-vida">
-						<img src="images/imagesGame/icon-vida.png" class="icon-vida">
-					</div>
-				</div>
 				<div class="contenido-estadistico" id="display-score">
 					<label for="intentos" name="intentos" class="intentos">Score:</label>
 					<input type="number" value ="0" name="score" class="score-number" readonly>
@@ -27,10 +17,16 @@ async function cambiarAContenidoJugable() {
 			<div class="display-muñeco">
 				<div class="contenedor-muñeco">
 					<div class ="seccion" id="seccion-1">
+						<img src="images/partesMuñeco/cabeza.png" class = "cabeza" id = "cabeza-muñeco">
 					</div>
 					<div class="seccion" id="seccion-2">
+						<img src="images/partesMuñeco/brazoIzquierdo.png" class="brazo" id="brazo-izquierdo">
+						<img src="images/partesMuñeco/torso.png" class="brazo" id="torso">
+						<img src="images/partesMuñeco/brazoDerecho.png" class="brazo" id="brazo-derecho">
 					</div>
 					<div class="seccion" id="seccion-3">
+						<img src = "images/partesMuñeco/piernaIzquierda.png" class="pierna" id="pierna-izquierda">
+						<img src = "images/partesMuñeco/piernaDerecha.png" class="pierna" id="pierna-derecha">
 					</div>
 				</div>
 			</div>
@@ -71,6 +67,13 @@ async function cambiarAContenidoJugable() {
 					<input type="button" value="y" name="letra" class="tecla-letra" readonly>
 					<input type="button" value="z" name="letra" class="tecla-letra" readonly>					
 				</div>							
+			</div>
+		</div>
+		<div class = ventana-modal>
+			<div class ="contenedor-modal">
+				<h2>Game Over</h2>
+				<h3>La palabra era:</h3>
+				<input type="number" name="muestra-score" class="mostrar-score" readonly>
 			</div>
 		</div>
 	`;
@@ -134,23 +137,67 @@ async function cambiarAContenidoJugable() {
 				contadorScore.value = valorDisplayScore;				
 
 			} catch(error) {
-				contenedorDeVidas.removeChild(contenedorDeVidas.lastElementChild);
+				
 				contadorErrores++;
 				
-				switch(contadorErrores) {
-					case 1:
-						const seccion1 = document.getElementById('seccion-1');
-						const cabezaMuñeco = document.createElement('img');
-						cabezaMuñeco.src = "images/partesMuñeco/cabeza.png";
-						cabezaMuñeco.className = "cabeza";
-						seccion1.appendChild(cabezaMuñeco);
-					break;
-					
-					case 2:
-					break;
+				if (contadorErrores < 7) {
+					switch(contadorErrores) {
+						case 1:
+							const seccion1 = document.getElementById('seccion-1');
+							const cabezaMuñeco = document.getElementById('cabeza-muñeco');
+							cabezaMuñeco.classList.add('mostrar');
+							tecla.style.opacity = "0.5";
+							tecla.style.pointerEvents = "none";
+						break;
+						
+						case 2:
+							const seccion2a = document.getElementById('seccion-2');
+							const brazoIzquierdo = document.getElementById('brazo-izquierdo');
+							brazoIzquierdo.classList.add('mostrar');
+							tecla.style.opacity = "0.5";
+							tecla.style.pointerEvents = "none";
+						break;
 
-					case 3:
-					break;	
+						case 3:
+							const seccion2b = document.getElementById('seccion-2');
+							const torso = document.getElementById('torso');
+							torso.classList.add('mostrar');
+							tecla.style.opacity = "0.5";
+							tecla.style.pointerEvents = "none";
+						break;	
+
+						case 4:
+							const seccion2c = document.getElementById('seccion-2');
+							const brazoDerecho = document.getElementById('brazo-derecho');
+							brazoDerecho.classList.add('mostrar');
+							tecla.style.opacity = "0.5";
+							tecla.style.pointerEvents = "none";
+						break;
+
+						case 5:
+							const seccion3a = document.getElementById('seccion-3');
+							const piernaIzquierda = document.getElementById('pierna-izquierda');
+							piernaIzquierda.classList.add('mostrar');
+							tecla.style.opacity = "0.5";
+							tecla.style.pointerEvents = "none";
+						break;	
+
+						case 6:
+							const seccion3b = document.getElementById('seccion-3');
+							const piernaDerecha = document.getElementById('pierna-derecha');
+							piernaDerecha.classList.add('mostrar');
+							tecla.style.opacity = "0.5";
+							tecla.style.pointerEvents = "none";						
+						break;
+					}
+
+
+
+				} else {
+					const ventanaModalPartidaPerdida = document.querySelector('ventana-modal');
+
+					ventanaModalPartidaPerdida.style.display = "flex";
+
 				}
 			}
 
