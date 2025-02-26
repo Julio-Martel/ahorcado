@@ -26,6 +26,12 @@ async function cambiarAContenidoJugable() {
 			</div>
 			<div class="display-muñeco">
 				<div class="contenedor-muñeco">
+					<div class ="seccion" id="seccion-1">
+					</div>
+					<div class="seccion" id="seccion-2">
+					</div>
+					<div class="seccion" id="seccion-3">
+					</div>
 				</div>
 			</div>
 
@@ -73,8 +79,7 @@ async function cambiarAContenidoJugable() {
 	  "hechizo", "dragón", "pocion", "espada", "misterio", 
 	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
 	  "luz", "sombra", "piedra", "llama", "secreto", 
-	  "puerta", "río", "sabiduría", "tesoro", "noche"
-	];
+	  "puerta", "río", "sabiduría", "tesoro", "noche"];
 
 	const obtenerValorAleatorio = (arr) => {
    	 	return new Promise(resolve => {
@@ -89,6 +94,7 @@ async function cambiarAContenidoJugable() {
 	const contenedorDeVidas = document.querySelector('.intentos-img');
 	const contadorScore = document.querySelector('.score-number');
 	let valorDisplayScore = parseInt(contadorScore.value);
+	let contadorErrores = 0;
 
 	for (let i = 0; i < longitudPalabra; i++) {
 	    const casillaLetra = document.createElement('div');
@@ -125,11 +131,27 @@ async function cambiarAContenidoJugable() {
 				}
 
 				valorDisplayScore = valorDisplayScore + 1000;
-				contadorScore.value = valorDisplayScore;
-
+				contadorScore.value = valorDisplayScore;				
 
 			} catch(error) {
 				contenedorDeVidas.removeChild(contenedorDeVidas.lastElementChild);
+				contadorErrores++;
+				
+				switch(contadorErrores) {
+					case 1:
+						const seccion1 = document.getElementById('seccion-1');
+						const cabezaMuñeco = document.createElement('img');
+						cabezaMuñeco.src = "images/partesMuñeco/cabeza.png";
+						cabezaMuñeco.className = "cabeza";
+						seccion1.appendChild(cabezaMuñeco);
+					break;
+					
+					case 2:
+					break;
+
+					case 3:
+					break;	
+				}
 			}
 
 		});
