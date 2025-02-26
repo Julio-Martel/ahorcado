@@ -79,7 +79,7 @@ async function cambiarAContenidoJugable() {
 	`;
 
 	const palabras = [
-	  "hechizo", "dragón", "pocion", "espada", "misterio", 
+	  "hechizo", "dragon", "pocion", "espada", "misterio", 
 	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
 	  "luz", "sombra", "piedra", "llama", "secreto", 
 	  "puerta", "río", "sabiduría", "tesoro", "noche"];
@@ -97,7 +97,8 @@ async function cambiarAContenidoJugable() {
 	const contenedorDeVidas = document.querySelector('.intentos-img');
 	const contadorScore = document.querySelector('.score-number');
 	let valorDisplayScore = parseInt(contadorScore.value);
-	let contadorErrores = 0;
+	let contadorErrores = 0; // si esto llega a 6, deberia acabarse el juego
+	let letraEncontradaAcum = 0; // si esto llega a la misma longitud de la palabra deberia salir una ventana modal con exito!
 
 	for (let i = 0; i < longitudPalabra; i++) {
 	    const casillaLetra = document.createElement('div');
@@ -116,12 +117,16 @@ async function cambiarAContenidoJugable() {
 		});
 	}
 
+	const delay = (ms) => {
+		return new Promise(resolve => setTimeout(resolve,ms));
+	}
+
 	for(let tecla of teclas) {
 		tecla.addEventListener('click', async () => {
 			const teclaValue = tecla.value;
 			try {
 				const letraEncontrada = await buscarLetra(teclaValue);
-				
+
 				for(let i = 0; i < palabraSeleccionada.length; i++) {
 					let indiceALetra = i.toString();
 					const idCasillaVacia = document.getElementById(indiceALetra);
@@ -134,79 +139,82 @@ async function cambiarAContenidoJugable() {
 				}
 
 				valorDisplayScore = valorDisplayScore + 1000;
-				contadorScore.value = valorDisplayScore;				
+				contadorScore.value = valorDisplayScore;
+
+				letraEncontradaAcum++;
+
+				if (letraEncontradaAcum === palabraSeleccionada.length) {
+					await delay(2000);
+					// aqui colocar modal!
+				}
 
 			} catch(error) {
 				
 				contadorErrores++;
 				
-				if (contadorErrores < 7) {
-					switch(contadorErrores) {
-						case 1:
-							const seccion1 = document.getElementById('seccion-1');
-							const cabezaMuñeco = document.getElementById('cabeza-muñeco');
-							cabezaMuñeco.classList.add('mostrar');
-							tecla.style.opacity = "0.5";
-							tecla.style.pointerEvents = "none";
-						break;
+				switch(contadorErrores) {
+					case 1:
+						const seccion1 = document.getElementById('seccion-1');
+						const cabezaMuñeco = document.getElementById('cabeza-muñeco');
+						cabezaMuñeco.classList.add('mostrar');
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";
+					break;
 						
-						case 2:
-							const seccion2a = document.getElementById('seccion-2');
-							const brazoIzquierdo = document.getElementById('brazo-izquierdo');
-							brazoIzquierdo.classList.add('mostrar');
-							tecla.style.opacity = "0.5";
-							tecla.style.pointerEvents = "none";
-						break;
+					case 2:
+						const seccion2a = document.getElementById('seccion-2');
+						const brazoIzquierdo = document.getElementById('brazo-izquierdo');
+						brazoIzquierdo.classList.add('mostrar');
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";
+					break;
 
-						case 3:
-							const seccion2b = document.getElementById('seccion-2');
-							const torso = document.getElementById('torso');
-							torso.classList.add('mostrar');
-							tecla.style.opacity = "0.5";
-							tecla.style.pointerEvents = "none";
-						break;	
+					case 3:
+						const seccion2b = document.getElementById('seccion-2');
+						const torso = document.getElementById('torso');
+						torso.classList.add('mostrar');
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";
+					break;	
 
-						case 4:
-							const seccion2c = document.getElementById('seccion-2');
-							const brazoDerecho = document.getElementById('brazo-derecho');
-							brazoDerecho.classList.add('mostrar');
-							tecla.style.opacity = "0.5";
-							tecla.style.pointerEvents = "none";
-						break;
+					case 4:
+						const seccion2c = document.getElementById('seccion-2');
+						const brazoDerecho = document.getElementById('brazo-derecho');
+						brazoDerecho.classList.add('mostrar');
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";
+					break;
 
-						case 5:
-							const seccion3a = document.getElementById('seccion-3');
-							const piernaIzquierda = document.getElementById('pierna-izquierda');
-							piernaIzquierda.classList.add('mostrar');
-							tecla.style.opacity = "0.5";
-							tecla.style.pointerEvents = "none";
-						break;	
+					case 5:
+						const seccion3a = document.getElementById('seccion-3');
+						const piernaIzquierda = document.getElementById('pierna-izquierda');
+						piernaIzquierda.classList.add('mostrar');
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";
+					break;	
 
-						case 6:
-							const seccion3b = document.getElementById('seccion-3');
-							const piernaDerecha = document.getElementById('pierna-derecha');
-							piernaDerecha.classList.add('mostrar');
-							tecla.style.opacity = "0.5";
-							tecla.style.pointerEvents = "none";						
-						break;
-					}
+					case 6:
+						const seccion3b = document.getElementById('seccion-3');
+						const piernaDerecha = document.getElementById('pierna-derecha');
+						piernaDerecha.classList.add('mostrar');
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";						
+					break;}
+					
+				console.log(contadorErrores);
 
-
-
-				} else {
-					const ventanaModalPartidaPerdida = document.querySelector('ventana-modal');
-
-					ventanaModalPartidaPerdida.style.display = "flex";
-
+				if (contadorErrores === 6) {
+					console.log('HAS PERDIDO!!!');
+					// aqui colocar modal!!
 				}
+
 			}
 
-		});
-	}
+		});}
 
+	
 
-
-}
+} // aca termina la funcion principal cambiarAContenidoJugable
 
 botonStart.addEventListener('click', cambiarAContenidoJugable);
 
