@@ -70,7 +70,7 @@ async function cambiarAContenidoJugable() {
 	`;
 
 	const palabras = [
-	  "hechizo", "dragón", "poción", "espada", "misterio", 
+	  "hechizo", "dragón", "pocion", "espada", "misterio", 
 	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
 	  "luz", "sombra", "piedra", "llama", "secreto", 
 	  "puerta", "río", "sabiduría", "tesoro", "noche"
@@ -87,13 +87,18 @@ async function cambiarAContenidoJugable() {
 	const contenedorPalabra = document.querySelector('.contenedor-palabra');
 	const teclas = document.querySelectorAll('.tecla-letra');
 	const contenedorDeVidas = document.querySelector('.intentos-img');
+	const contadorScore = document.querySelector('.score-number');
+	let valorDisplayScore = parseInt(contadorScore.value);
 
 	for (let i = 0; i < longitudPalabra; i++) {
 	    const casillaLetra = document.createElement('div');
 	    casillaLetra.classList.add('cuadrado-casilla');
 	    casillaLetra.setAttribute("data-value", i);
+	    casillaLetra.setAttribute("id", i);
 	    contenedorPalabra.appendChild(casillaLetra);
 	}
+
+	console.log(palabraSeleccionada); //test
 
 	const buscarLetra = (letra) => {
 		return new Promise((resolve,reject) => {
@@ -108,6 +113,19 @@ async function cambiarAContenidoJugable() {
 			try {
 				const letraEncontrada = await buscarLetra(teclaValue);
 				
+				for(let i = 0; i < palabraSeleccionada.length; i++) {
+					let indiceALetra = i.toString();
+					const idCasillaVacia = document.getElementById(indiceALetra);
+
+					if (teclaValue === palabraSeleccionada[i]) {
+						idCasillaVacia.textContent = teclaValue;
+						tecla.style.opacity = "0.5";
+						tecla.style.pointerEvents = "none";
+					}
+				}
+
+				valorDisplayScore = valorDisplayScore + 1000;
+				contadorScore.value = valorDisplayScore;
 
 
 			} catch(error) {
