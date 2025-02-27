@@ -69,11 +69,11 @@ async function cambiarAContenidoJugable() {
 				</div>							
 			</div>
 		</div>
-		<div class = ventana-modal>
-			<div class ="contenedor-modal">
-				<h2>Game Over</h2>
-				<h3>La palabra era:</h3>
-				<input type="number" name="muestra-score" class="mostrar-score" readonly>
+		
+		<div class = "ventana-modal">
+			<div class ="contenido-modal-partida">
+
+				<input type="number" value="0" class="mostrar-score" readonly>
 			</div>
 		</div>
 	`;
@@ -82,7 +82,7 @@ async function cambiarAContenidoJugable() {
 	  "hechizo", "dragon", "pocion", "espada", "misterio", 
 	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
 	  "luz", "sombra", "piedra", "llama", "secreto", 
-	  "puerta", "río", "sabiduría", "tesoro", "noche"];
+	  "puerta", "rio", "sabiduría", "tesoro", "noche"];
 
 	const obtenerValorAleatorio = (arr) => {
    	 	return new Promise(resolve => {
@@ -145,7 +145,18 @@ async function cambiarAContenidoJugable() {
 
 				if (letraEncontradaAcum === palabraSeleccionada.length) {
 					await delay(2000);
-					// aqui colocar modal!
+
+					const ventanaModalPartidaGanada = document.querySelector('.ventana-modal');
+					const contenidoModalPartidaGanada = document.querySelector('.contenido-modal-partida');
+					const displayScorePartidaGanada = document.querySelector('.mostrar-score');
+					const tituloPartidaGanada = document.createElement('h1');
+
+					ventanaModalPartidaGanada.style.display = "flex";
+					tituloPartidaGanada.textContent = "Partida ganada!"
+					contenidoModalPartidaGanada.appendChild(tituloPartidaGanada);
+					displayScorePartidaGanada.value = valorDisplayScore;
+				
+					/*arreglar problema en el que si tenemos dos letras iguales deberian incrementarse las veces que se repite*/
 				}
 
 			} catch(error) {
