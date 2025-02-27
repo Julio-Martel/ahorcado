@@ -144,6 +144,24 @@ p {
 	border: solid 1px darkgrey;
 }
 
+.contenido-modal-partida {
+	background: url('images/imagesGame/partidaGanada.jpg');
+	background-size: cover;
+	background-position-y: 30%;
+	display: flex;
+	flex-direction: column-reverse;
+	width: 50%;
+	height: 40%;
+	padding: 5px;
+	border: solid 1px darkgrey;
+	border-radius: 5px;	
+	justify-content: left;
+}
+
+.mostrar-score {
+	width: 30%;
+}
+
 h2 {
 	font-family: 'Gothica-bold';
 	color: #ffffff;
@@ -249,7 +267,7 @@ li {
 }
 
 .contenedor-muñeco {
-	background: darkred;
+	background: #000000;
 	width: 20%;
 	height: 100%;
 	min-width: 160px;
