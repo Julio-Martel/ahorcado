@@ -135,13 +135,13 @@ async function cambiarAContenidoJugable() {
 						idCasillaVacia.textContent = teclaValue;
 						tecla.style.opacity = "0.5";
 						tecla.style.pointerEvents = "none";
+						valorDisplayScore = valorDisplayScore + 1000;
+						contadorScore.value = valorDisplayScore;
+						letraEncontradaAcum++;
 					}
 				}
 
-				valorDisplayScore = valorDisplayScore + 1000;
-				contadorScore.value = valorDisplayScore;
-
-				letraEncontradaAcum++;
+				
 
 				if (letraEncontradaAcum === palabraSeleccionada.length) {
 					await delay(2000);
