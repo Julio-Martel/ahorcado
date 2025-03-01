@@ -5,6 +5,61 @@ const ventanaModalInstrucciones = document.querySelector('.ventana-modal');
 const contenedorModal = document.querySelector('.contenido-modal');
 const botonCerrarModal = document.getElementById('boton-cerrar-modal');
 
+const cambiarAlMenu = () => {
+	contenedorPrincipal.innerHTML = `
+		<div class="content" id="texto-boton">
+			<button class="button" id="main-button">
+				start!
+			</button>
+			<button class="button" id="button-instrucciones">
+				instrucciones
+			</button>
+		</div>
+		<div class="content" id="main-image">
+			<img src="images/imageStart/start-game.jpg" class="start-game-image">
+		</div>
+		
+		<div class="ventana-modal">
+			<div class="contenido-modal">
+			 	<div class="lista-instrucciones">
+			 		<h2>Como jugar</h2>
+					<ol>
+						<li>1 - El juego mostrará una palabra oculta con guiones 	bajos (_) representando cada letra.</li>
+						<li>2 - El jugador debe ingresar una letra en cada turno.</li>
+						<li>3 - Si la letra está en la palabra, se revelará en su posición correspondiente.</li>
+						<li>4 - Si la letra no está en la palabra, el jugador perderá un intento y se dibujará una parte del ahorcado.</li>
+						<li>
+							<li>5 - El juego continúa hasta que:</li>
+								<ul>
+									<li> * El jugador adivine toda la palabra (¡gana! 🎉).</li>
+									<li> * Se complete el dibujo del ahorcado sin adivinar la palabra (pierde 💀).</li>
+								</ul>
+						</li>
+					</ol>
+					<button class="button" id="boton-cerrar-modal">
+						cerrar
+					</button>
+				</div>
+			</div>		
+	`;
+
+	const botonStart = document.getElementById('main-button');
+	const botonInstrucciones = document.getElementById('button-instrucciones');
+	const ventanaModalInstrucciones = document.querySelector('.ventana-modal');
+	const contenedorModal = document.querySelector('.contenido-modal');
+	const botonCerrarModal = document.getElementById('boton-cerrar-modal');
+
+
+	botonStart.addEventListener('click', cambiarAContenidoJugable);
+
+	botonInstrucciones.addEventListener('click', () => ventanaModalInstrucciones.style.display = "flex" );
+
+	ventanaModalInstrucciones.addEventListener('click', () => ventanaModalInstrucciones.style.display = "none");
+
+	contenedorModal.addEventListener('click',() => event.stopPropagation());
+
+	botonCerrarModal.addEventListener('click', () => ventanaModalInstrucciones.style.display = "none");}
+
 async function cambiarAContenidoJugable() {
 	contenedorPrincipal.innerHTML = `
 		<div class="seccion-juego">
@@ -79,7 +134,7 @@ async function cambiarAContenidoJugable() {
 					</div>
 					<div class="seccion-botones">
 						<button class="boton-modal" id="boton-reiniciar">Restart Game</button>
-						<button class="boton-modal" id=#boton-menu>Main Menu</button>
+						<button class="boton-modal" id="boton-menu">Main Menu</button>
 					</div>		
 				</div>
 			</div>
@@ -143,15 +198,17 @@ async function cambiarAContenidoJugable() {
 						idCasillaVacia.textContent = teclaValue;
 						tecla.style.opacity = "0.5";
 						tecla.style.pointerEvents = "none";
+						tecla.style.background = "green";
+						tecla.style.color = "white";
 						valorDisplayScore = valorDisplayScore + 1000;
 						contadorScore.value = valorDisplayScore;
 						letraEncontradaAcum++;
-					}
+					} 
 				}
 				
+				if (letraEncontradaAcum === palabraSeleccionada.length) {	
 
-				if (letraEncontradaAcum === palabraSeleccionada.length) {
-					await delay(2000);
+					await delay(1000);
 
 					const ventanaModalPartidaGanada = document.querySelector('.ventana-modal');
 					const contenidoModalPartidaGanada = document.querySelector('.contenido-modal-partida');
@@ -161,16 +218,20 @@ async function cambiarAContenidoJugable() {
 					const salirAlMenu = document.getElementById('boton-menu');
 
 					ventanaModalPartidaGanada.style.display = "flex";
+					ventanaModalPartidaGanada.style.cursor = "auto";
 					tituloPartidaGanada.textContent = "Partida ganada!"
 					contenidoModalPartidaGanada.appendChild(tituloPartidaGanada);
 					displayScorePartidaGanada.value = valorDisplayScore;
 
 					reiniciarJuego.addEventListener('click', cambiarAContenidoJugable);
-
+					salirAlMenu.addEventListener('click', cambiarAlMenu);
 				}
 
 			} catch(error) {
 				
+				tecla.style.background = "darkred";
+				tecla.style.color = "white";
+
 				contadorErrores++;
 				
 				switch(contadorErrores) {
@@ -221,20 +282,32 @@ async function cambiarAContenidoJugable() {
 						tecla.style.opacity = "0.5";
 						tecla.style.pointerEvents = "none";						
 					break;}
-					
-				console.log(contadorErrores);
-
+				
 				if (contadorErrores === 6) {
-					console.log('HAS PERDIDO!!!');
-					// aqui colocar modal!!
-				}
+					await delay(2000);
 
+					const ventanaModalPartidaPerdida = document.querySelector('.ventana-modal');
+					const contenidoModalPartidaPerdida = document.querySelector('.contenido-modal-partida');
+					const displayScorePartidaPerdida = document.querySelector('.mostrar-score');
+					const tituloPartidaPerdida = document.createElement('h1');
+					const reiniciarJuego = document.getElementById('boton-reiniciar');
+					const salirAlMenu = document.getElementById('boton-menu');
+					const palabraCorrecta = document.createElement('h2');
+
+					ventanaModalPartidaPerdida.style.display = "flex";
+					ventanaModalPartidaPerdida.style.cursor = "auto";
+					tituloPartidaPerdida.textContent = "Partida perdida!"
+					palabraCorrecta.textContent = palabraSeleccionada;
+					contenidoModalPartidaPerdida.appendChild(tituloPartidaPerdida);
+					contenidoModalPartidaPerdida.appendChild(palabraCorrecta);
+					displayScorePartidaPerdida.value = valorDisplayScore;
+
+					reiniciarJuego.addEventListener('click', cambiarAContenidoJugable);
+					salirAlMenu.addEventListener('click', cambiarAlMenu);					
+				}
 			}
 
 		});}
-
-	
-
 } // aca termina la funcion principal cambiarAContenidoJugable
 
 botonStart.addEventListener('click', cambiarAContenidoJugable);
