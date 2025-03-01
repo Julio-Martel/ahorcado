@@ -140,7 +140,6 @@ async function cambiarAContenidoJugable() {
 						letraEncontradaAcum++;
 					}
 				}
-
 				
 
 				if (letraEncontradaAcum === palabraSeleccionada.length) {
@@ -155,8 +154,10 @@ async function cambiarAContenidoJugable() {
 					tituloPartidaGanada.textContent = "Partida ganada!"
 					contenidoModalPartidaGanada.appendChild(tituloPartidaGanada);
 					displayScorePartidaGanada.value = valorDisplayScore;
-				
-					/*arreglar problema en el que si tenemos dos letras iguales deberian incrementarse las veces que se repite*/
+
+					// mejorar el modal
+
+
 				}
 
 			} catch(error) {
