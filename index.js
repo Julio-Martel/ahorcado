@@ -142,10 +142,41 @@ async function cambiarAContenidoJugable() {
 	`;
 
 	const palabras = [
-	  "hechizo", "dragon", "pocion", "espada", "misterio", 
-	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
-	  "luz", "sombra", "piedra", "llama", "secreto", 
-	  "puerta", "rio", "sabiduria", "tesoro", "noche"];
+	  "hechizo", "dragon", "pocion", "espada", "misterio", "castillo", "aventura", "mago", "encantamiento", "sombrero",
+	  "luz", "sombra", "piedra", "llama", "secreto", "puerta", "rio", "sabiduria", "tesoro", "noche",
+	  "bruja", "elfo", "orco", "caballero", "reino", "principe", "princesa", "corona", "espejo", "bosque",
+	  "caverna", "cueva", "hadas", "fantasma", "duende", "varita", "maleficio", "conjuro", "espiritu", "maldicion",
+	  "espectro", "poder", "trampa", "reliquia", "viento", "agua", "fuego", "tierra", "nube", "relampago",
+	  "trueno", "estrella", "universo", "galaxia", "dimensional", "porton", "llave", "enigma", "pergamino", "sigilo",
+	  "guardian", "templo", "sacrificio", "energia", "runas", "cetro", "invocacion", "ritual", "leyenda", "sabio",
+	  "tormenta", "claro", "escondite", "oculto", "sombra", "luz", "brillo", "espiral", "oscuro", "relato",
+	  "profeta", "vision", "destino", "camino", "viaje", "ciclo", "infierno", "paraiso", "demonio", "angel",
+	  "despertar", "alquimia", "fuerza", "resplandor", "bruma", "gargola", "trono", "portal", "cristal", "sello",
+	  "eterno", "eternidad", "inmortal", "ascension", "descenso", "sabiduria", "secreto", "leyenda", "perdido", "oculto",
+	  "verdugo", "desafiante", "daga", "lobo", "espiritu", "serpiente", "resplandor", "oscuro", "arma", "combate",
+	  "rayo", "tornado", "fuerza", "encantado", "vinculo", "brillo", "camuflaje", "corazon", "destello", "batalla",
+	  "caballo", "guerrero", "intriga", "sigilo", "llave", "puerta", "templo", "altar", "poderoso", "fuerza",
+	  "noche", "dia", "aurora", "cielo", "inframundo", "revelacion", "eco", "sangre", "cruzada", "sombra",
+	  "tragedia", "llama", "sabio", "ciencia", "experimento", "ceniza", "fragancia", "nectar", "poeta", "artesano",
+	  "herrero", "arquero", "gladiador", "monje", "piedra", "vinculo", "deseo", "juramento", "realidad", "ilusion",
+	  "sombrio", "encantador", "sigilo", "oscuro", "armadura", "escudo", "flama", "maestro", "servidor", "liberacion",
+	  "prision", "sacrificio", "memoria", "pasado", "futuro", "presente", "ritmo", "sinfonia", "melodia", "ecos",
+	  "sello", "muro", "desierto", "laguna", "cumbre", "valle", "faro", "estanque", "perla", "diamante",
+	  "esmeralda", "rubio", "zafiro", "jade", "pergamino", "cristal", "oculto", "arca", "tesoro", "bendicion",
+	  "plegaria", "pacto", "alianza", "traicion", "sombra", "luz", "estrella", "cenizas", "luna", "sol",
+	  "cicatriz", "invisible", "fantasmal", "lamento", "maldicion", "torre", "reino", "dictador", "sabiduria", "tragedia",
+	  "rebelion", "escape", "encierro", "desafio", "sangre", "coraje", "guerra", "paz", "profecia", "guardian",
+	  "serpiente", "dragones", "vampiro", "esqueleto", "almas", "pacto", "condena", "nexo", "purgatorio", "travesia",
+	  "deseo", "pocima", "herida", "peligro", "enemigo", "amistad", "hermandad", "soledad", "venganza", "justicia",
+	  "confianza", "desconocido", "brujula", "serpiente", "fuego", "cielo", "tierra", "oceano", "barrera", "prueba",
+	  "instinto", "encierro", "verdugo", "vidente", "reencarnacion", "susurro", "silencio", "compas", "travesia", "eterno",
+	  "fundacion", "poder", "ascenso", "leyenda", "eterna", "honor", "fragancia", "silencio", "vestigios", "eco",
+	  "acero", "cenizas", "recompensa", "noche", "acantilado", "deseo", "brillante", "estrella", "luz", "tormenta",
+	  "cautiverio", "inocencia", "sabiduria", "destino", "enigmatico", "revelacion", "candado", "llave", "puerta", "sombra",
+	  "desafiante", "portador", "compromiso", "disciplina", "conjuro", "talisman", "gargantilla", "destreza", "obstaculo", "decadencia",
+	  "esperanza", "prueba", "piedra", "vinculo", "sendero", "intriga", "bruma", "cautela", "guardian", "pilar",
+	  "vestigio", "lamento", "alquimia", "prohibido", "oculto", "adivinanza", "sabiduria", "brillante", "tormento", "inocente",
+	  "perdido", "origen", "cautela", "prediccion", "misterioso", "secreto", "realidad", "sueño", "obsesion", "prohibido"];
 
 	const obtenerValorAleatorio = (arr) => {
    	 	return new Promise(resolve => {
@@ -207,6 +238,13 @@ async function cambiarAContenidoJugable() {
 				}
 				
 				if (letraEncontradaAcum === palabraSeleccionada.length) {	
+
+					const letras = document.querySelectorAll('.tecla-letra');
+					
+					letras.forEach(letra => {
+						letra.style.pointerEvents = "none";
+						letra.disabled = true;
+					});
 
 					await delay(1000);
 
@@ -284,6 +322,14 @@ async function cambiarAContenidoJugable() {
 					break;}
 				
 				if (contadorErrores === 6) {
+					
+					const letras = document.querySelectorAll('.tecla-letra');
+					
+					letras.forEach(letra => {
+						letra.style.pointerEvents = "none";
+						letra.disabled = true;
+					});
+					
 					await delay(2000);
 
 					const ventanaModalPartidaPerdida = document.querySelector('.ventana-modal');
@@ -307,7 +353,8 @@ async function cambiarAContenidoJugable() {
 				}
 			}
 
-		});}
+		});
+	}
 } // aca termina la funcion principal cambiarAContenidoJugable
 
 botonStart.addEventListener('click', cambiarAContenidoJugable);
