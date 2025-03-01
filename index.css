@@ -27,6 +27,7 @@
 	font-family: 'Gothica-bold'; 
 	font-size: 3rem;
 	color: #ffffff;
+	text-decoration: none;
 }
 
 .main-content {
@@ -156,10 +157,67 @@ p {
 	border: solid 1px darkgrey;
 	border-radius: 5px;	
 	justify-content: left;
+	gap: 10px;
+	cursor: auto;
 }
 
 .mostrar-score {
 	width: 30%;
+	height: 30px;
+	border-radius: 5px;
+	border: solid 1px #000000;
+	font-family: 'Gothica-bold';
+	color: #000000;	
+	padding-left: 3px;
+}
+
+.puntaje-botones {
+	display: flex;
+	gap: 5px;
+	flex-direction: column;
+}
+
+.display-puntaje-obtenido {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.seccion-botones {
+	display: flex;
+	gap: 5px;
+}
+
+.puntaje {
+	font-family: 'Gothica-bold';
+	color: #ffffff;
+	text-decoration: underline;
+	text-shadow: 	
+    -2px -2px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;	
+}
+
+.boton-modal {
+	background: #000000;
+	color: #ffffff;
+	border-radius: 5px;
+	border: solid 1px darkgrey;
+	padding: 5px;
+	font-family: 'Gothica-bold';
+}
+
+h1 {
+	font-family: 'Gothica-bold';
+	color: #ffffff;
+	text-decoration: underline;
+	text-shadow: 	
+    -2px -2px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+    font-size: 3rem;	
 }
 
 h2 {
