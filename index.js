@@ -71,9 +71,17 @@ async function cambiarAContenidoJugable() {
 		</div>
 		
 		<div class = "ventana-modal">
-			<div class ="contenido-modal-partida">
-
-				<input type="number" value="0" class="mostrar-score" readonly>
+			<div class="contenido-modal-partida">
+				<div class="puntaje-botones">
+					<div class="display-puntaje-obtenido">
+						<label for="puntaje" name="puntaje" class="puntaje">Your score: </label>
+						<input type="number" value="0" class="mostrar-score" readonly>		
+					</div>
+					<div class="seccion-botones">
+						<button class="boton-modal" id="boton-reiniciar">Restart Game</button>
+						<button class="boton-modal" id=#boton-menu>Main Menu</button>
+					</div>		
+				</div>
 			</div>
 		</div>
 	`;
@@ -82,7 +90,7 @@ async function cambiarAContenidoJugable() {
 	  "hechizo", "dragon", "pocion", "espada", "misterio", 
 	  "castillo", "aventura", "mago", "encantamiento", "sombrero", 
 	  "luz", "sombra", "piedra", "llama", "secreto", 
-	  "puerta", "rio", "sabiduría", "tesoro", "noche"];
+	  "puerta", "rio", "sabiduria", "tesoro", "noche"];
 
 	const obtenerValorAleatorio = (arr) => {
    	 	return new Promise(resolve => {
@@ -149,14 +157,15 @@ async function cambiarAContenidoJugable() {
 					const contenidoModalPartidaGanada = document.querySelector('.contenido-modal-partida');
 					const displayScorePartidaGanada = document.querySelector('.mostrar-score');
 					const tituloPartidaGanada = document.createElement('h1');
+					const reiniciarJuego = document.getElementById('boton-reiniciar');
+					const salirAlMenu = document.getElementById('boton-menu');
 
 					ventanaModalPartidaGanada.style.display = "flex";
 					tituloPartidaGanada.textContent = "Partida ganada!"
 					contenidoModalPartidaGanada.appendChild(tituloPartidaGanada);
 					displayScorePartidaGanada.value = valorDisplayScore;
 
-					// mejorar el modal
-
+					reiniciarJuego.addEventListener('click', cambiarAContenidoJugable);
 
 				}
 
