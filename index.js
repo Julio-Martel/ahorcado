@@ -4,21 +4,24 @@ const botonInstrucciones = document.getElementById('button-instrucciones');
 const ventanaModalInstrucciones = document.querySelector('.ventana-modal');
 const contenedorModal = document.querySelector('.contenido-modal');
 const botonCerrarModal = document.getElementById('boton-cerrar-modal');
+const gameOver = new Audio('audios/dead.mp3');
+const botonTecla = new Audio('audios/button2.mp3');
 
 const cambiarAlMenu = () => {
 	contenedorPrincipal.innerHTML = `
-		<div class="content" id="texto-boton">
-			<button class="button" id="main-button">
-				start!
-			</button>
-			<button class="button" id="button-instrucciones">
-				instrucciones
-			</button>
-		</div>
-		<div class="content" id="main-image">
-			<img src="images/imageStart/start-game.jpg" class="start-game-image">
-		</div>
-		
+		<div class="contenedor-imagen-botones">
+			<div class="content" id="main-image">
+				<img src="images/imageStart/start-game.jpg" class="start-game-image">
+			</div>	
+			<div class="content" id="texto-boton">
+				<button class="button" id="main-button">
+					start!
+				</button>
+				<button class="button" id="button-instrucciones">
+					instrucciones
+				</button>
+			</div>			
+		</div>		
 		<div class="ventana-modal">
 			<div class="contenido-modal">
 			 	<div class="lista-instrucciones">
@@ -40,7 +43,8 @@ const cambiarAlMenu = () => {
 						cerrar
 					</button>
 				</div>
-			</div>		
+			</div>
+		</div>
 	`;
 
 	const botonStart = document.getElementById('main-button');
@@ -125,8 +129,8 @@ async function cambiarAContenidoJugable() {
 			</div>
 		</div>
 		
-		<div class = "ventana-modal">
-			<div class="contenido-modal-partida">
+		<div class = "ventana-modal" id="modal-1">
+			<div class="contenido-modal-partida" id="partida-ganada">
 				<div class="puntaje-botones">
 					<div class="display-puntaje-obtenido">
 						<label for="puntaje" name="puntaje" class="puntaje">Your score: </label>
@@ -138,7 +142,25 @@ async function cambiarAContenidoJugable() {
 					</div>		
 				</div>
 			</div>
-		</div>
+		</div>	
+
+		<div class = "ventana-modal" id="modal-2">
+			<div class="contenido-modal-partida" id="partida-perdida">
+				<div class="puntaje-botones">
+					<div class="mostrar-palabra">
+					 	<h3>La palabra correcta era:</h3>
+					</div>
+					<div class="display-puntaje-obtenido">
+						<label for="puntaje" name="puntaje" class="puntaje">Your score: </label>
+						<input type="number" value="0" class="mostrar-score" readonly>		
+					</div>
+					<div class="seccion-botones">
+						<button class="boton-modal" id="boton-reiniciar-1">Restart Game</button>
+						<button class="boton-modal" id="boton-menu-1">Main Menu</button>
+					</div>		
+				</div>
+			</div>
+		</div>			
 	`;
 
 	const palabras = [
@@ -217,6 +239,7 @@ async function cambiarAContenidoJugable() {
 
 	for(let tecla of teclas) {
 		tecla.addEventListener('click', async () => {
+			botonTecla.play();
 			const teclaValue = tecla.value;
 			try {
 				const letraEncontrada = await buscarLetra(teclaValue);
@@ -248,8 +271,8 @@ async function cambiarAContenidoJugable() {
 
 					await delay(1000);
 
-					const ventanaModalPartidaGanada = document.querySelector('.ventana-modal');
-					const contenidoModalPartidaGanada = document.querySelector('.contenido-modal-partida');
+					const ventanaModalPartidaGanada = document.getElementById('modal-1');
+					const contenidoModalPartidaGanada = document.getElementById('partida-ganada');
 					const displayScorePartidaGanada = document.querySelector('.mostrar-score');
 					const tituloPartidaGanada = document.createElement('h1');
 					const reiniciarJuego = document.getElementById('boton-reiniciar');
@@ -323,6 +346,9 @@ async function cambiarAContenidoJugable() {
 				
 				if (contadorErrores === 6) {
 					
+					gameOver.volume = 0.5;
+					gameOver.play();
+
 					const letras = document.querySelectorAll('.tecla-letra');
 					
 					letras.forEach(letra => {
@@ -332,20 +358,21 @@ async function cambiarAContenidoJugable() {
 					
 					await delay(2000);
 
-					const ventanaModalPartidaPerdida = document.querySelector('.ventana-modal');
-					const contenidoModalPartidaPerdida = document.querySelector('.contenido-modal-partida');
+					const ventanaModalPartidaPerdida = document.getElementById('modal-2');
+					const contenidoModalPartidaPerdida = document.getElementById('partida-perdida');
 					const displayScorePartidaPerdida = document.querySelector('.mostrar-score');
 					const tituloPartidaPerdida = document.createElement('h1');
-					const reiniciarJuego = document.getElementById('boton-reiniciar');
-					const salirAlMenu = document.getElementById('boton-menu');
+					const reiniciarJuego = document.getElementById('boton-reiniciar-1');
+					const salirAlMenu = document.getElementById('boton-menu-1');
+					const mostrarPalabra = document.querySelector('.mostrar-palabra');
 					const palabraCorrecta = document.createElement('h2');
 
+					palabraCorrecta.textContent = palabraSeleccionada;
+					mostrarPalabra.appendChild(palabraCorrecta);
 					ventanaModalPartidaPerdida.style.display = "flex";
 					ventanaModalPartidaPerdida.style.cursor = "auto";
 					tituloPartidaPerdida.textContent = "Partida perdida!"
-					palabraCorrecta.textContent = palabraSeleccionada;
 					contenidoModalPartidaPerdida.appendChild(tituloPartidaPerdida);
-					contenidoModalPartidaPerdida.appendChild(palabraCorrecta);
 					displayScorePartidaPerdida.value = valorDisplayScore;
 
 					reiniciarJuego.addEventListener('click', cambiarAContenidoJugable);
