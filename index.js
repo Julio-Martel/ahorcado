@@ -6,6 +6,9 @@ const contenedorModal = document.querySelector('.contenido-modal');
 const botonCerrarModal = document.getElementById('boton-cerrar-modal');
 const gameOver = new Audio('audios/dead.mp3');
 const botonTecla = new Audio('audios/button2.mp3');
+const botonStartSound = new Audio('audios/buttonPlay.mp3');
+const evilGameOverSound = new Audio('audios/evilGameOver.mp3');
+const ambienteSound = new Audio('audios/ambient.mp3');
 
 const cambiarAlMenu = () => {
 	contenedorPrincipal.innerHTML = `
@@ -58,13 +61,19 @@ const cambiarAlMenu = () => {
 
 	botonInstrucciones.addEventListener('click', () => ventanaModalInstrucciones.style.display = "flex" );
 
-	ventanaModalInstrucciones.addEventListener('click', () => ventanaModalInstrucciones.style.display = "none");
+	ventanaModalInstrucciones.addEventListener('click', () => {
+		ventanaModalInstrucciones.style.display = "none";
+		botonStartSound.play();
+	});
 
 	contenedorModal.addEventListener('click',() => event.stopPropagation());
 
 	botonCerrarModal.addEventListener('click', () => ventanaModalInstrucciones.style.display = "none");}
 
 async function cambiarAContenidoJugable() {
+	ambienteSound.play();
+	ambienteSound.loop = true;	
+	botonStartSound.play();
 	contenedorPrincipal.innerHTML = `
 		<div class="seccion-juego">
 			<div class="score-vidas">
@@ -269,7 +278,7 @@ async function cambiarAContenidoJugable() {
 						letra.disabled = true;
 					});
 
-					await delay(1000);
+					await delay(2000);
 
 					const ventanaModalPartidaGanada = document.getElementById('modal-1');
 					const contenidoModalPartidaGanada = document.getElementById('partida-ganada');
@@ -358,6 +367,7 @@ async function cambiarAContenidoJugable() {
 					
 					await delay(2000);
 
+
 					const ventanaModalPartidaPerdida = document.getElementById('modal-2');
 					const contenidoModalPartidaPerdida = document.getElementById('partida-perdida');
 					const displayScorePartidaPerdida = document.querySelector('.mostrar-score');
@@ -367,6 +377,7 @@ async function cambiarAContenidoJugable() {
 					const mostrarPalabra = document.querySelector('.mostrar-palabra');
 					const palabraCorrecta = document.createElement('h2');
 
+					evilGameOverSound.play();
 					palabraCorrecta.textContent = palabraSeleccionada;
 					mostrarPalabra.appendChild(palabraCorrecta);
 					ventanaModalPartidaPerdida.style.display = "flex";
@@ -386,7 +397,10 @@ async function cambiarAContenidoJugable() {
 
 botonStart.addEventListener('click', cambiarAContenidoJugable);
 
-botonInstrucciones.addEventListener('click', () => ventanaModalInstrucciones.style.display = "flex" );
+botonInstrucciones.addEventListener('click', () => {
+	ventanaModalInstrucciones.style.display = "flex";
+	botonStartSound.play();
+} );
 
 ventanaModalInstrucciones.addEventListener('click', () => ventanaModalInstrucciones.style.display = "none");
 
