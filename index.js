@@ -9,6 +9,7 @@ const botonTecla = new Audio('audios/button2.mp3');
 const botonStartSound = new Audio('audios/buttonPlay.mp3');
 const evilGameOverSound = new Audio('audios/evilGameOver.mp3');
 const ambienteSound = new Audio('audios/ambient.mp3');
+const windSound = new Audio('audios/youWin.mp3');
 
 const cambiarAlMenu = () => {
 	contenedorPrincipal.innerHTML = `
@@ -287,6 +288,7 @@ async function cambiarAContenidoJugable() {
 					const reiniciarJuego = document.getElementById('boton-reiniciar');
 					const salirAlMenu = document.getElementById('boton-menu');
 
+					windSound.play();
 					ventanaModalPartidaGanada.style.display = "flex";
 					ventanaModalPartidaGanada.style.cursor = "auto";
 					tituloPartidaGanada.textContent = "Partida ganada!"
