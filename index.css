@@ -199,7 +199,7 @@ h3 {
 }
 
 .mostrar-score {
-	width: 50%;
+	width: 40%;
 	height: 30px;
 	border-radius: 5px;
 	border: solid 1px #000000;
@@ -209,14 +209,9 @@ h3 {
 }
 
 .puntaje-botones {
-	background: rgba(0, 0, 0, 0.6);
-	border-radius: 5px;
-	border: solid 1px darkgrey;
 	display: flex;
 	gap: 5px;
 	flex-direction: column;
-	padding: 5px;
-	width: 30%;
 }
 
 .display-puntaje-obtenido {
@@ -324,7 +319,6 @@ li {
 	width: 60%;
 	display: flex;
 	gap: 10px;
-	padding: 5px;
 }
 
 .contenido-estadistico {
