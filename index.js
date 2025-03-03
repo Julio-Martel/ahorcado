@@ -234,9 +234,7 @@ async function cambiarAContenidoJugable() {
 	    casillaLetra.setAttribute("id", i);
 	    contenedorPalabra.appendChild(casillaLetra);
 	}
-
-	console.log(palabraSeleccionada); //test
-
+	
 	const buscarLetra = (letra) => {
 		return new Promise((resolve,reject) => {
 			const letraEncontrada = palabraSeleccionada.includes(letra);
