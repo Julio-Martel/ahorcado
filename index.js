@@ -226,7 +226,8 @@ async function cambiarAContenidoJugable() {
 	let contadorErrores = 0; // si esto llega a 6, deberia acabarse el juego
 	let letraEncontradaAcum = 0; // si esto llega a la misma longitud de la palabra deberia salir una ventana modal con exito!
 
-	for (let i = 0; i < longitudPalabra; i++) {
+	for (let i = 
+		0; i < longitudPalabra; i++) {
 	    const casillaLetra = document.createElement('div');
 	    casillaLetra.classList.add('cuadrado-casilla');
 	    casillaLetra.setAttribute("data-value", i);
