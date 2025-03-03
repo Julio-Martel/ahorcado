@@ -684,6 +684,14 @@ li {
 		padding: 5px;
 	}	
 
+	.start-game-image {
+		width: 70%;
+	}
+
+	.button {
+		width: 70%;
+	}
+
 	.score-vidas {
 		width: 100%;
 		display: flex;
